@@ -60,7 +60,3 @@ If you'd like to contribute to **Excela**, feel free to submit a pull request! H
 4. Make your changes and commit them.
 5. Push the changes to your fork.
 6. Create a pull request from your fork to the main repository.
-
-## License
-
-**Excela** is open-source software, licensed under the [MIT License](LICENSE).
