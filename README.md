@@ -10,15 +10,32 @@
 - **TailwindCSS Integration**: Optionally include **TailwindCSS** for modern, responsive UI design.
 - **Efficient Configuration**: Select your preferred tools and technologies during the setup process.
 
-## Installation
+### Installation
 
-To install **Excela**, simply run the following command:
+You can use **Excela** in two ways:
+
+1. Directly via `npx` (no installation required).
+2. By installing it globally or locally with `npm`.
+
+### Option 1: Using `npx` (Recommended for Quick Use)
+
+Run the following command to use **Excela** without installation:
 
 ```bash
 npx excela@latest
 ```
 
-### **Commands**
+### Option 2: Install Globally or Locally
+
+```bash
+npm install -g excela
+```
+
+Once installed, you can run the tool using:
+
+```bash
+excela
+```
 
 ### `npx excela@latest`
 
@@ -50,6 +67,7 @@ After running the following command, you'll be prompted to make selections for y
 ```bash
 npx excela@latest
 ```
+
 ### **Contributing**
 
 If you'd like to contribute to **Excela**, feel free to submit a pull request! Here's how you can contribute:
