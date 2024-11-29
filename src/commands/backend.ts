@@ -14,8 +14,8 @@ export async function initBackend(targetPath: string, standalone = true) {
     const includeTypescript = await select({
         message: 'Do you want to include TypeScript support?',
         choices: [
-            // { name: 'Yes', value: true },
             { name: 'No', value: false },
+            // { name: 'Yes', value: true },
         ],
     });
 
@@ -44,6 +44,7 @@ export async function initBackend(targetPath: string, standalone = true) {
 
         await execPromise('npm init -y', { cwd: backendDir });
         await execPromise('npm install express', { cwd: backendDir });
+        await execPromise('npm install nodemon --save-dev', { cwd: backendDir });
 
         if (includeMorgan) await execPromise('npm install morgan', { cwd: backendDir });
         if (includeCors) await execPromise('npm install cors', { cwd: backendDir });
@@ -92,6 +93,7 @@ app.listen(PORT, () => {
     console.log(\`🌟 Server is running on http://localhost:\${PORT}\`);
 });
 `;
+
         const serverFilePath = path.join(srcDir, includeTypescript ? 'server.ts' : 'server.js');
         await fs.writeFile(serverFilePath, serverTemplate);
 
@@ -101,7 +103,7 @@ app.listen(PORT, () => {
         packageJsonContent.scripts = {
             ...packageJsonContent.scripts,
             start: includeTypescript ? 'tsc && node dist/server.js' : 'node src/server.js',
-            dev: includeTypescript ? 'ts-node src/server.ts' : 'node src/server.js',
+            dev: includeTypescript ? 'ts-node src/server.ts' : 'nodemon src/server.js',
         };
         if (!includeTypescript) delete packageJsonContent.scripts.build;
 

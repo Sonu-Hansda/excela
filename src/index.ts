@@ -34,6 +34,7 @@ async function main(): Promise<void> {
         switch (projectType) {
             case 'frontend':
                 await initFrontend(projectName);
+                console.log(`👉 Next steps:\ncd ${projectName}\nnpm install\nnpm run dev`);
                 break;
             case 'backend':
                 await initBackend(projectName);

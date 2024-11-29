@@ -78,15 +78,15 @@ module.exports = {
 
             const existingCSS = await fs.readFile(cssFilePath, 'utf8').catch(() => '');
             if (!existingCSS.includes('@tailwind')) {
-                await fs.writeFile(cssFilePath, tailwindDirectives.trim() + '\n' + existingCSS);
-                console.log(`✅ Tailwind directives added to ${cssFilePath}.`);
+                const updatedCSS = tailwindDirectives.trim() + '\n' + existingCSS;
+                await fs.writeFile(cssFilePath, updatedCSS);
+                console.log(`✅ Tailwind directives added to the beginning of ${cssFilePath}.`);
             } else {
                 console.log(`⚠️ Tailwind directives already exist in ${cssFilePath}. Skipping.`);
             }
         }
 
         console.log(`🎉 Frontend project "${projectName}" initialized successfully!`);
-        console.log(`👉 Next steps:\ncd ${projectName}\nnpm install\nnpm run dev`);
     } catch (error) {
         console.error('⚠️ Failed to initialize frontend:', error);
     }

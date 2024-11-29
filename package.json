@@ -1,9 +1,12 @@
 {
   "name": "excela",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "main": "./build/index.js",
   "bin": {
     "excela": "./build/index.js"
+  },
+  "engines": {
+    "node": ">=18 <=22"
   },
   "scripts": {
     "clean": "rimraf build",
