@@ -2,7 +2,6 @@ import { select } from '@inquirer/prompts';
 import { execPromise } from '../utils';
 import fs from 'fs/promises';
 
-
 export async function initFrontend(projectName: string) {
     const language = await select({
         message: 'Select project language',
@@ -34,15 +33,20 @@ export async function initFrontend(projectName: string) {
             console.error(`❌ Directory "${projectName}" already exists. Choose a different name.`);
             return;
         } catch {
+
         }
+
+        await fs.mkdir(projectName);
+
+        process.chdir(projectName);
 
         const command = buildTool === 'vite'
             ? language === 'typescript'
-                ? `npm create vite@latest ${projectName} -- --template react-ts`
-                : `npm create vite@latest ${projectName} -- --template react`
+                ? `npm create vite@latest . -- --template react-ts`
+                : `npm create vite@latest . -- --template react`
             : language === 'typescript'
-                ? `npx create-react-app ${projectName} --template typescript`
-                : `npx create-react-app ${projectName}`;
+                ? `npx create-react-app . --template typescript`
+                : `npx create-react-app .`;
 
         console.log(`🚀 Setting up the ${buildTool} project...`);
         const { stderr } = await execPromise(command);
@@ -54,7 +58,7 @@ export async function initFrontend(projectName: string) {
 
         if (includeTailwind) {
             console.log(`🌟 Installing Tailwind CSS...`);
-            const tailwindCommand = `cd ${projectName} && npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`;
+            const tailwindCommand = `npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`;
             await execPromise(tailwindCommand);
 
             const tailwindConfigContent = `
@@ -66,10 +70,10 @@ module.exports = {
     plugins: [],
 };
             `;
-            await fs.writeFile(`${projectName}/tailwind.config.js`, tailwindConfigContent.trim());
+            await fs.writeFile('tailwind.config.js', tailwindConfigContent.trim());
             console.log(`✅ Tailwind configuration file created.`);
 
-            const cssFilePath = `${projectName}/src/index.css`;
+            const cssFilePath = 'src/index.css';
             const tailwindDirectives = `
 @tailwind base;
 @tailwind components;
